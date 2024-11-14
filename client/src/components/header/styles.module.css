@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  height: 10%;
+  overflow: hidden;
+  width: 100%;
+  color: white;
+  background-color: #62825d;
+}
+
+.headerRow {
+  display: flex;
+  padding: 0px 16px;
+  width: 100%;
+  align-items: center;
+}
+
+.headerList {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+}
+
+.headerNav {
+  margin-left: auto;
+}
+
+.headerItem {
+  display: flex;
+  align-items: center;
+}

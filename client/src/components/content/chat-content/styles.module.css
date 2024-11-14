@@ -1,0 +1,65 @@
+.chatContentMainDiv {
+  width: 75%;
+  background-color: #dee5d4;
+}
+
+.chatSelected {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.sendMsgInput {
+  padding: 4px;
+  width: 100%;
+}
+
+.input {
+  border-color: green;
+}
+
+.sendMsg {
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  margin: auto 16px 8px 16px;
+  gap: 8px;
+}
+
+.sendIcon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9edf9c;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.sendIcon:hover {
+  background-color: #57a05b;
+}
+
+.displayMsgs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  overflow: auto;
+}
+
+.chatNameDiv {
+  border-bottom: 1px solid white;
+  display: flex;
+  align-items: center;
+  padding: 0px 16px;
+}
+
+.editIcon {
+  color: black;
+}
+
+.deleteIcon {
+  color: red;
+}

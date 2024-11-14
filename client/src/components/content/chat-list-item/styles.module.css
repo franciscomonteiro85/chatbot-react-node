@@ -1,0 +1,33 @@
+.chatListItemDiv {
+  border-top: 1px solid white;
+  padding: 4px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.selectedItemDiv {
+  background-color: #c2ffc7;
+  border-top: 1px solid white;
+  padding: 4px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lastMsgDiv {
+  display: flex;
+  width: 160px;
+}
+
+.lastMsg {
+  color: grey;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
