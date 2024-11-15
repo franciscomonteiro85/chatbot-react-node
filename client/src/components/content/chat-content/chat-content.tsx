@@ -2,7 +2,7 @@ import { IconButton, TextField } from '@mui/material';
 import { EmptyChatContent } from '../empty-chat/empty-chat-content';
 import { Chat } from '../main.content';
 import classes from './styles.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Delete, Edit, Send } from '@mui/icons-material';
 import { ChatMessage } from '../chat-message/chat-message';
 import axios from 'axios';
@@ -29,6 +29,20 @@ export const ChatContent = (props: ChatContentProps) => {
   const [chatMessages, setChatMessages] = useState<Message[]>([]); // List of the current chat messages
   const [openEditNameDialog, setOpenEditNameDialog] = useState<boolean>(false); // Variable that toggles the dialog
 
+  const lastMessageRef = useRef<HTMLDivElement | null>(null); // Ref of the last message helper div
+
+  // Function to scroll smoothly to the bottom message
+  const scrollToBottom = () => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Scroll to the the last sent message
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages]);
+
   // Helper function that fetches all the current chat messages
   const fetchChatMessages = useCallback(async () => {
     await axios.get(`http://localhost:4000/${selectedChat._id}/messages`).then((res) => {
@@ -39,8 +53,8 @@ export const ChatContent = (props: ChatContentProps) => {
 
   // Fetch the messages each time the selected chat changes
   useEffect(() => {
+    // Verify if there is a selected chat
     if (selectedChat._id) {
-      // Verify if there is a selected chat
       fetchChatMessages();
     }
   }, [fetchChatMessages, selectedChat]);
@@ -118,6 +132,8 @@ export const ChatContent = (props: ChatContentProps) => {
               {chatMessages.map((msg) => {
                 return <ChatMessage key={msg._id} sender={msg.sender === 'Francisco'} msg={msg.msg} />;
               })}
+              {/* Div to help scroll to the last message */}
+              <div ref={lastMessageRef} />
             </div>
             <div className={classes.sendMsg}>
               <div className={classes.sendMsgInput}>

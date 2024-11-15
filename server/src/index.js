@@ -8,6 +8,8 @@ const port = 4000;
 
 const app = express();
 
+// Setup app
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const corsOptions = {
@@ -18,6 +20,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use('/', router);
+
+// Start connection to database and server
 
 connectToDatabase()
   .then(() => {

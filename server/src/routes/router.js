@@ -5,6 +5,7 @@ import { saveMessageToDb, generateBotResponse } from '../func/helper-functions.j
 
 const router = express.Router();
 
+// Get endpoint that fetches all chats
 router.get('/chats', async (req, res) => {
   try {
     const database = getDatabase();
@@ -16,6 +17,7 @@ router.get('/chats', async (req, res) => {
   }
 });
 
+// Get endpoint that finds messages from a specific chat
 router.get('/:id/messages', async (req, res) => {
   try {
     const chatId = req.params.id.toLowerCase();
@@ -31,6 +33,7 @@ router.get('/:id/messages', async (req, res) => {
   }
 });
 
+// Post endpoint that creates new chats
 router.post('/chats', async (req, res) => {
   const { name, lastMsg } = req.body;
 
@@ -47,14 +50,18 @@ router.post('/chats', async (req, res) => {
   }
 });
 
+// Post endpoint that adds new messages to database
 router.post('/messages', async (req, res) => {
   const { msg, sender, chatId } = req.body;
 
   try {
+    // Insert user message
     const newMsg = await saveMessageToDb(msg, sender, chatId);
 
+    // Generate response based on the user message
     const botResponse = generateBotResponse(msg);
 
+    // Insert algorithm message into the database
     const newBotMsg = await saveMessageToDb(botResponse, 'bot', chatId);
 
     res.status(201).json({ userMessage: newMsg, botResponse: newBotMsg });
@@ -64,6 +71,7 @@ router.post('/messages', async (req, res) => {
   }
 });
 
+// Put endpoint to update the chat's name
 router.put('/chats/:chatId', async (req, res) => {
   const { chatId } = req.params;
   const { newName } = req.body;
@@ -76,14 +84,14 @@ router.put('/chats/:chatId', async (req, res) => {
       return res.status(404).send('Chat not found');
     }
 
-    const updatedChat = await db.collection('chats').findOne({ _id: new ObjectId(chatId) });
-    res.status(200).json(updatedChat);
+    res.status(200).send('Chat updated with success');
   } catch (err) {
     console.error('Error editing chat name:', err);
     res.status(500).send('Error editing chat name');
   }
 });
 
+// Delete endpoint that deletes a chat and associated messages on the messages collection
 router.delete('/chats/:chatId', async (req, res) => {
   const { chatId } = req.params;
 

@@ -1,3 +1,4 @@
+// Static answers from the algorithm
 export const algorithm = {
   general: "I'm here to help! How can I assist you today?",
   hello: 'Hello! How can I help you today?',
